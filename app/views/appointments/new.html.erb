@@ -1,0 +1,14 @@
+<h1> Add An Appointment </h1>
+<hr />
+
+<%= form_for @appointment do |f| %>
+  <%= f.select :doctors_id, options_for_select(@doctors) %>
+  <%= f.select :patients_id, options_for_select(@patients) %>
+
+
+  <%= f.submit nil, class: 'btn' %>
+<% end %>
+
+<hr />
+<%= link_to 'All Doctors', doctors_path %> |
+<%= link_to 'All Patients', patients_path %>
