@@ -5,7 +5,7 @@ class PatientsController < ApplicationController
   end
 
   def new
-    @patients = Patient.new
+    @patient = Patient.new
   end
 
   def show
@@ -14,10 +14,10 @@ class PatientsController < ApplicationController
   def edit
   end
 
-  def create_table
-    @patients = Patient.find(patient_params)
+  def create
+    @patient = Patient.new(patient_params)
 
-    if @patients.save
+    if @patient.save
       redirect_to @patient, notice: 'Patient was successfully created.'
     else
       render :new
@@ -26,7 +26,7 @@ class PatientsController < ApplicationController
 
   def update
     if @patient.update(patient_params)
-      redirect_to @patient, notice: 'Patient was successfully updated.'
+      redirect_to patients_path, notice: 'Patient was successfully updated.'
     else
       render :edit
     end
@@ -39,11 +39,11 @@ class PatientsController < ApplicationController
 
   private
 
-    def set_Patient
+    def set_patient
       @patient = Patient.find(params[:id])
     end
 
-    def Patient_params
+    def patient_params
       params.require(:patient).permit(:name, :description)
     end
 end

@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606205603) do
+ActiveRecord::Schema.define(version: 20170608202320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.bigint "doctors_id"
-    t.bigint "patients_id"
+    t.bigint "doctor_id"
+    t.bigint "patient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["doctors_id"], name: "index_appointments_on_doctors_id"
-    t.index ["patients_id"], name: "index_appointments_on_patients_id"
+    t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
   end
 
   create_table "doctors", force: :cascade do |t|
@@ -33,10 +33,18 @@ ActiveRecord::Schema.define(version: 20170606205603) do
 
   create_table "patients", force: :cascade do |t|
     t.string "name"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "appointments", "doctors", column: "doctors_id"
-  add_foreign_key "appointments", "patients", column: "patients_id"
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "appointments", "doctors"
+  add_foreign_key "appointments", "patients"
 end

@@ -14,10 +14,10 @@ class DoctorsController < ApplicationController
   def edit
   end
 
-  def create_table
-    @doctors = Doctor.find(doctor_params)
+  def create
+    @doctor = Doctor.new(doctor_params)
 
-    if @doctors.save
+    if @doctor.save
       redirect_to @doctor, notice: 'Doctor was successfully created.'
     else
       render :new

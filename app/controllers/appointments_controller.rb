@@ -1,19 +1,23 @@
 class AppointmentsController < ApplicationController
   def new
-
     @doctors = Doctor.all.map { |d| [d.name, d.id] }
     @patients = Patient.all.map { |t| [t.name, t.id]  }
     @appointment = Appointment.new
   end
 
+  def index
+    @appointments = Appointment.all
+  end
+
   def create
-    @appointment = Appointment.new(appointment_params)
-    if @appointment.new
-      flash[:success] = 'Appointment Added'
-      redirect_to :back
+   @appointment = Appointment.new(appointment_params)
+
+    if @appointment.save
+      redirect_to appointments_path, notice: 'Appointment was successfully created.'
     else
       render :new
     end
+  
   end
 
   def destroy
